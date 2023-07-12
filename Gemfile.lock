@@ -167,7 +167,7 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     regexp_parser (2.8.1)
-    reline (0.3.5)
+    reline (0.3.6)
       io-console (~> 0.5)
     rexml (3.2.5)
     rubyzip (2.3.2)
@@ -221,7 +221,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
-  rails (~> 7.0.6)
+  rails (~> 7.0.4)
   selenium-webdriver
   sprockets-rails
   stimulus-rails

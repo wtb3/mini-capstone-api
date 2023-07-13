@@ -5,13 +5,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.create(
-      name: params[:name],
-      price: params[:price],
-      image_url: params[:image_url],
-      description: params[:description],
-    )
-    render :show
+    @product = Product.new(product_params)
+
+    if @product.save
+      render :show, status: :created
+    else
+      render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -21,18 +21,23 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find_by(id: params[:id])
-    @product.update(
-      name: params[:name] || @product.name,
-      price: params[:price] || @product.price,
-      image_url: params[:image_url] || @product.image_url,
-      description: params[:description] || @product.description,
-    )
-    render :show
+
+    if @product.update(product_params)
+      render :show
+    else
+      render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @product = Product.find_by(id: params[:id])
     @product.destroy
     render json: { message: "Product destroyed successfully!" }
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:name, :price, :image_url, :description)
   end
 end

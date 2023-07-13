@@ -1,5 +1,9 @@
 Product.create(name: "Product 1", price: 10, image_url: "test.com", description: "Description 1")
 Product.create(name: "Product 2", price: 20, image_url: "test.com", description: "Description 2")
+
+Supplier.create(name: "Supplier 1", email: "supplier1@example.com", phone_number: "1234567890")
+Supplier.create(name: "Supplier 2", email: "supplier2@example.com", phone_number: "9876543210")
+
 product = Product.new({ name: "WNYX Mug", price: 2, description: "Get your morning news once you wake up with a cup of joe from... well Joe. He made it with his homemade duct tape", image_url: "https://i.pinimg.com/236x/14/4a/0b/144a0bffe37f29f414e2dae2bd0141cf.jpg" })
 product.save
 

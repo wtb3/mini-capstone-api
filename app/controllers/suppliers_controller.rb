@@ -1,5 +1,3 @@
-# app/controllers/suppliers_controller.rb
-
 class SuppliersController < ApplicationController
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
 
@@ -14,6 +12,9 @@ class SuppliersController < ApplicationController
     @supplier = Supplier.new
   end
 
+  def edit
+  end
+
   def create
     @supplier = Supplier.new(supplier_params)
 
@@ -22,9 +23,6 @@ class SuppliersController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update

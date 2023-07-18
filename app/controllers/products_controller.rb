@@ -15,12 +15,12 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
+    @product = find_product_by_id
     render :show
   end
 
   def update
-    @product = Product.find_by(id: params[:id])
+    @product = find_product_by_id
 
     if @product.update(product_params)
       render :show
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find_by(id: params[:id])
+    @product = find_product_by_id
     @product.destroy
     render json: { message: "Product destroyed successfully!" }
   end
@@ -39,5 +39,9 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :price, :image_url, :description)
+  end
+
+  def find_product_by_id
+    Product.find_by(id: params[:id])
   end
 end

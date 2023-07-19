@@ -1,48 +1,46 @@
 class ProductsController < ApplicationController
   def index
-    pp "current_user"
     @products = Product.all
     render :index
   end
 
   def create
-    @product = Product.new(product_params)
-
-    if @product.save
-      render :show, status: :created
-    else
+    @product = Product.new(
+      supplier_id: params[:supplier_id],
+      name: params[:name],
+      price: params[:price],
+      description: params[:description],
+    )
+    if @product.save #happy path
+      render :show
+    else #sad path
       render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def show
-    @product = find_product_by_id
+    @product = Product.find_by(id: params[:id])
     render :show
   end
 
   def update
-    @product = find_product_by_id
-
-    if @product.update(product_params)
+    @product = Product.find_by(id: params[:id])
+    @product.update(
+      supplier_id: params[:supplier_id] || @product.supplier_id,
+      name: params[:name] || @product.name,
+      price: params[:price] || @product.price,
+      description: params[:description] || @product.description,
+    )
+    if @product.save #happy path
       render :show
-    else
+    else #sad path
       render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @product = find_product_by_id
+    @product = Product.find_by(id: params[:id])
     @product.destroy
     render json: { message: "Product destroyed successfully!" }
-  end
-
-  private
-
-  def product_params
-    params.require(:product).permit(:name, :price, :image_url, :description)
-  end
-
-  def find_product_by_id
-    Product.find_by(id: params[:id])
   end
 end

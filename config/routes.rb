@@ -1,27 +1,30 @@
-#Rails.application.routes.draw do
-#get "/all_products", controller: "products", action: "all_products"
-#resources :products, defaults: { format: :json }
-
-#get "/product/:id" => "products#one_product"
-#end
 Rails.application.routes.draw do
-  # get "/products", controller: "products", action: "index"
+  # Devise routes for User authentication
+  devise_for :users
 
+  # Products
   get "/products" => "products#index"
   post "/products" => "products#create"
   get "/products/:id" => "products#show"
   patch "/products/:id" => "products#update"
   delete "/products/:id" => "products#destroy"
-  #suppliers
+
+  # Suppliers
   get "/suppliers/:id" => "suppliers#index"
-  #users
+
+  # Users
   post "/users" => "users#create"
-  #sessions
+
+  # Sessions
   post "/sessions" => "sessions#create"
 
-  #orders
-
+  # Orders
   post "/orders" => "orders#create"
   get "/orders" => "orders#index"
   get "/orders/:id" => "orders#show"
+
+  # Carted Products
+  post "/carted_products" => "carted_products#create"
+  get "/carted_products" => "carted_products#index"
+  delete "/carted_products/:id" => "carted_products#destroy"
 end
